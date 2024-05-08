@@ -1,0 +1,36 @@
+@extends('app.layout')
+@section("title","Forget-Password")
+@section("content")
+<main>
+    <div class="ms-auto me-auto mt-5" style="width: 500px">
+       <div class="mt-5">
+        @if($errors->any())
+            <div class="col-12">
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{$error}}</div>
+                @endforeach
+            </div>
+        @endif
+
+        @if(session()->has('error'))
+            <div class="alert alert-danger"{{session('error')}}></div>
+        @endif
+
+        @if(session()->has('success'))
+            <div class="alert alert-success"{{session('success')}}></div>
+         @endif
+        </div>
+        <p>We will send a link to your email, use that link to reset password.</p>
+        <form method="POST" action="{{route('forget.password.post')}}">
+            @csrf
+            <div class="mb-3">
+                <input type="email" placeholder="Email"
+                 class="form-control" name="email" required autofocus>
+            </div>
+            <div class="d-grid mx-auto">
+                <button type="submit" class="btn btn-dark btn-block">Sign In</button>
+            </div>
+          </form>
+    </div>
+</main>
+@endsection
